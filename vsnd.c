@@ -279,7 +279,7 @@ static int vsnd_probe(struct platform_device *devptr)
     err = snd_devm_card_new(&devptr->dev, index[devptr->id], id[devptr->id],
                             THIS_MODULE, sizeof(struct vsnd), &card);
     if (err < 0) {
-        pr_err("Couldn't create a new sound card!");
+        pr_err("Failed to create a new soundcard.");
         return err;
     }
 
@@ -298,7 +298,7 @@ static int vsnd_probe(struct platform_device *devptr)
     /* Then create a new PCM stream and attach it to this card */
     err = snd_pcm_new(card, PCM_NAME, devptr->id, 1, 0, &pcm);
     if (err < 0) {
-        pr_err("Couldn't create a new PCM stream for sound card!");
+        pr_err("Failed to create a new PCM stream for soundcard.");
         return err;
     }
 
@@ -311,7 +311,7 @@ static int vsnd_probe(struct platform_device *devptr)
 
     err = snd_card_register(card);
     if (err < 0) {
-        pr_err("Couldn't register sound card!");
+        pr_err("Failed to register sound card.");
         return err;
     }
 
@@ -346,7 +346,7 @@ static int vsnd_open(struct snd_pcm_substream *substream)
      */
     fifo_fp = filp_open(out_fifo_name[dev_id], O_RDWR | O_NONBLOCK, 0);
     if (IS_ERR(fifo_fp)) {
-        pr_err("Failed to open FIFO file!");
+        pr_err("Failed to open FIFO file.");
         err = -EIO;
         goto finally;
     }
@@ -539,7 +539,7 @@ static int __init vsnd_init(void)
 
     err = platform_driver_register(&vsnd_driver);
     if (err < 0) {
-        pr_err("Failed to register!");
+        pr_err("Failed to register.");
         return err;
     }
 
@@ -552,7 +552,7 @@ static int __init vsnd_init(void)
             continue;
 
         if (!is_fifo_file(out_fifo_name[i])) {
-            pr_err("Output FIFO filename not provided or its type is no FIFO.");
+            pr_err("FIFO filename is not provided or its type is no FIFO.");
             continue;
         }
 
@@ -570,7 +570,7 @@ static int __init vsnd_init(void)
     }
 
     if (!device_count) {
-        pr_err("Failed to register any device!");
+        pr_err("Failed to register any device.");
         vsnd_unregister_all();
         return -ENODEV;
     }
