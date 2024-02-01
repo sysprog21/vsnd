@@ -1,11 +1,11 @@
-# Virtual Linux Sound Driver
+# Virtual Soundcard Driver for Linux Kernel
 
-`vsnd` implements a Linux driver that introduces a virtual soundcard. Typically,
-a sound card is a hardware component that enables computers to play audio files.
-This virtual soundcard, however, is designed to transmit audio PCM data received
-from various programs directly into a FIFO file.
+`vsnd` implements a Linux device driver that introduces a virtual soundcard.
+Typically, a sound card is a hardware component that enables computers to play
+audio files. This virtual soundcard, however, is designed to transmit audio
+PCM data received from various programs directly into a FIFO file.
 
-## Prerequisite
+## Prerequisites
 The following packages must be installed before building `vsnd`.
 
 To compile the kernel driver successfully, package versions of currently used
@@ -20,7 +20,6 @@ $ sudo apt install alsa-utils ffmpeg
 ```
 
 ## Build and Run
-
 After running make, you should be able to generate the file `vsnd.ko`.
 
 Before loading this kernel module, you have to satisfy its dependency:
@@ -53,6 +52,10 @@ card 0: vsnd [vsnd], device 0: vsnd PCM [vsnd PCM]
 ```
 
 See [scripts/verify.sh](scripts/verify.sh) for automated test.
+
+## License
+`vsnd`is released under the MIT license. Use of this source code is governed by
+a MIT-style license that can be found in the LICENSE file.
 
 ## Reference
 * [The ALSA Driver API](https://www.kernel.org/doc/html/latest/sound/kernel-api/alsa-driver-api.html)
