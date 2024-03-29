@@ -53,6 +53,33 @@ card 0: vsnd [vsnd], device 0: vsnd PCM [vsnd PCM]
 
 See [scripts/verify.sh](scripts/verify.sh) for automated test.
 
+### Run on PulseAudio-enabled environment
+
+If your system uses PulseAudio to control the sound ouput
+device (i.e., sink), you may undergo
+with the following error when you select the sink
+as `vsnd` from PulseAudio then you try to remove `vsnd`:
+```
+$ sudo rmmod vsnd
+rmmod: ERROR: Module vsnd is in use
+```
+
+The reason is that PulseAudio occupies `vsnd`. Though you can
+tell PulseAudio to disable `vsnd` so that you can remove `vsnd`,
+we suggest you to disable temporarily when using `vsnd` by the following
+command:
+```
+$ systemctl --user stop pulseaudio.socket
+$ systemctl --user stop pulseaudio.service
+```
+
+After using `vsnd`, you can execute the following command to bring
+back PulseAudio:
+```
+$ systemctl --user start pulseaudio.service
+$ systemctl --user start pulseaudio.socket
+```
+
 ## License
 `vsnd`is released under the MIT license. Use of this source code is governed by
 a MIT-style license that can be found in the LICENSE file.
