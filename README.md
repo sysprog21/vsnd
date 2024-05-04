@@ -92,6 +92,24 @@ $ systemctl --user start pulseaudio.service
 $ systemctl --user start pulseaudio.socket
 ```
 
+### Run on PipeWire-enabled environment
+
+In systems use the PipeWire (e.g., Ubuntu 24.04 LTS), you might also encounter
+the problem that you are not able to remove the vsnd module.
+
+To solve this problem, you need to stop the PipeWire with:
+
+```shell
+$ systemctl --user stop pipewire.socket
+$ systemctl --user stop pipewire
+```
+
+And after removing the module, restart it with:
+
+```shell
+$ systemctl --user start pipewire
+```
+
 ## License
 
 `vsnd`is released under the MIT license. Use of this source code is governed by
