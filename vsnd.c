@@ -62,7 +62,7 @@ static int input_pcm_freq[SNDRV_CARDS] = {
 static char *out_fifo_name[SNDRV_CARDS] = SNDRV_DEFAULT_STR;
 
 module_param_array(index, int, NULL, 0444);
-MODULE_PARM_DESC(index, "Index value for sound cardd");
+MODULE_PARM_DESC(index, "Index value for sound card");
 module_param_array(id, charp, NULL, 0444);
 MODULE_PARM_DESC(id, "ID string for sound card");
 module_param_array(enable, bool, NULL, 0444);
