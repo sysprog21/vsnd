@@ -24,7 +24,6 @@ MODULE_VERSION("0.1");
 static int is_fifo_file(char *filename)
 {
     struct path path;
-    struct inode *inode;
     int err;
 
     if (!filename) {
@@ -36,8 +35,7 @@ static int is_fifo_file(char *filename)
     if (err < 0)
         goto finally;
 
-    inode = path.dentry->d_inode;
-    err = ((inode->i_mode & S_IFMT) == S_IFIFO ? 0 : -EIO);
+    err = (S_ISFIFO(path.dentry->d_inode->i_mode) ? 0 : -EIO);
 
     path_put(&path);
 
